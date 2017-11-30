@@ -17,6 +17,7 @@ namespace TP6_Programmation_III
         public Color m_Couleur;
         private float m_Largeur;
 
+        #region Properties
         public string Nom
         {
             get
@@ -83,6 +84,7 @@ namespace TP6_Programmation_III
                 m_Largeur = value;
             }
         }
+#endregion
 
         public Dessin(string name, DateTime dateCreation, double cout)
         {

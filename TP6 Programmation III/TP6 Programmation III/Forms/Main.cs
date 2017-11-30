@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TP6_Programmation_III
@@ -22,10 +16,12 @@ namespace TP6_Programmation_III
         public frmMain()
         {
             InitializeComponent();
+
             Nouveau.ShowDialog();
             this.Couleur = Color.Black;
             this.DessinEnCours = false;
-            Dess = new Dessin(Nouveau.Nom, Nouveau.Date, Math.Round(r.NextDouble() * (56.78 - 12.34) + 12.34));
+            Dess = new Dessin(Nouveau.Nom, Nouveau.Date,
+                Math.Round(r.NextDouble() * (56.78 - 12.34) + 12.34, 2));
         }
 
         private void plDessin_MouseDown(object sender, MouseEventArgs e)
