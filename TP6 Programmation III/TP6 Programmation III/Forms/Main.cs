@@ -6,13 +6,17 @@ namespace TP6_Programmation_III
 {
     public partial class frmMain : Form
     {
+
+        #region Variables
         private Boolean DessinEnCours;
         private frmNewDraw Nouveau = new frmNewDraw();
         private Dessin Dess;
         Random r = new Random();
         Graphics g;
         private Color Couleur;
+        #endregion
 
+        #region Methods
         public frmMain()
         {
             InitializeComponent();
@@ -22,6 +26,7 @@ namespace TP6_Programmation_III
             this.DessinEnCours = false;
             Dess = new Dessin(Nouveau.Nom, Nouveau.Date,
                 Math.Round(r.NextDouble() * (56.78 - 12.34) + 12.34, 2));
+            g = plDessin.CreateGraphics();
         }
 
         private void plDessin_MouseDown(object sender, MouseEventArgs e)
@@ -30,6 +35,7 @@ namespace TP6_Programmation_III
             {
                 this.DessinEnCours = true;
                 this.Dess.AjouterPoint(plDessin.PointToClient(Cursor.Position));
+                this.Dess.Dessiner(g);
             }
         }
 
@@ -37,7 +43,6 @@ namespace TP6_Programmation_III
         {
             if (this.DessinEnCours)
             {
-                g = plDessin.CreateGraphics();
                 this.Dess.Dessiner(g);
                 this.Dess.AjouterPoint(plDessin.PointToClient(Cursor.Position));
             }
@@ -59,3 +64,4 @@ namespace TP6_Programmation_III
         }
     }
 }
+#endregion

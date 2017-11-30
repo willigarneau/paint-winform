@@ -1,21 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 
 namespace TP6_Programmation_III
 {
+    [Serializable]
     public class Dessin
     {
+
+        #region Variables
         private string m_NomDessin;
         private DateTime m_MomentCreation;
         private double m_Cost;
         public List<Point> m_Coords;
         public Color m_Couleur;
         private float m_Largeur;
+#endregion
 
         #region Properties
         public string Nom
@@ -120,6 +125,16 @@ namespace TP6_Programmation_III
         int Supprimer(Rectangle Rect)
         {
             return 0;
+        }
+
+        void Serialize()
+        {
+            Dessin ToSer = new Dessin(Nom, DateCreation, Cost);
+            ToSer.Coords = Coords;
+            IFormatter formatter = new BinaryFormatter();
+            string Path = string.Format("{0}.don", ToSer.Nom);
+            Stream stream = new FileStream(Path, FileMode.Create, FileAccess.Write, FileShare.None);
+
         }
     }
 }
