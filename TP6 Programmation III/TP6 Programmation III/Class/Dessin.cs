@@ -148,6 +148,24 @@ namespace TP6_Programmation_III
             return ToDes;
         }
 
+        public void Save()
+        {
+            Dessin ToSave = new Dessin(Nom, DateCreation, Cost);
+            ToSave.Coords = Coords;
+            string ToFile = string.Format("{0}\r\n{1}\r\n{2}\r\n", ToSave.Nom, ToSave.DateCreation, ToSave.Cost);
+            int i = 0;
+            foreach (Point p in ToSave.Coords)
+            {
+                ToFile += ToSave.Coords[i].ToString() + "\r\n";
+                i++;
+            }
+            string Path = string.Format("{0}.txt", ToSave.Nom);
+            FileStream TextFile = new FileStream(Path, FileMode.Create, FileAccess.Write, FileShare.None);
+            StreamWriter s = new StreamWriter(TextFile);
+            s.Write(ToFile);
+            TextFile.Close();
+        }
+
         public void Redessiner(Graphics g, int i)
         {
             Brush b = new SolidBrush(this.m_Couleur);

@@ -109,6 +109,7 @@
             this.btnSaveText.Name = "btnSaveText";
             this.btnSaveText.Size = new System.Drawing.Size(395, 42);
             this.btnSaveText.Text = "Enregistrer fichier texte";
+            this.btnSaveText.Click += new System.EventHandler(this.btnSaveText_Click);
             // 
             // btnProperties
             // 

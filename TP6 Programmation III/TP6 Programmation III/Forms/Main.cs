@@ -100,6 +100,11 @@ namespace TP6_Programmation_III
                 indice = 0;
             }
         }
+
+        private void btnSaveText_Click(object sender, EventArgs e)
+        {
+            Dess.Save();
+        }
     }
 }
 #endregion
