@@ -124,7 +124,7 @@
   <data name="DdbMenu.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAABMhSURBVHhe7d1dqGwF3cfxOXpMlMy0yIjeQSUpqIvCLJBA
+        YQUAAAAJcEhZcwAAITcAACE3ATNYn3oAABMhSURBVHhe7d1dqGwF3cfxOXpMlMy0yIjeQSUpqIvCLJBA
         6arECoNe4OnFC8G86MoCQYJ6pMiMLAkiCYSI1C68KC+CBO1BggqfRAVJKRHJ86iVVnoO9vx/O9nM4fzP
         OftlZvZaaz5f+Nys1qxZMzc/O3vvmZkkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIk
         SZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSVp4+8sZ5Q3lvPKecj4ArEA2J9uTDcoWZZO0
@@ -209,4 +209,7 @@
         2ez/AdKwS2DF1twQAAAAAElFTkSuQmCC
 </value>
   </data>
+  <metadata name="OpfFichiers.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>214, 17</value>
+  </metadata>
 </root>

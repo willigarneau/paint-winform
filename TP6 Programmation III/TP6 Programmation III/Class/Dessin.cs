@@ -127,14 +127,34 @@ namespace TP6_Programmation_III
             return 0;
         }
 
-        void Serialize()
+        public void Serialize()
         {
             Dessin ToSer = new Dessin(Nom, DateCreation, Cost);
             ToSer.Coords = Coords;
             IFormatter formatter = new BinaryFormatter();
             string Path = string.Format("{0}.don", ToSer.Nom);
             Stream stream = new FileStream(Path, FileMode.Create, FileAccess.Write, FileShare.None);
+            formatter.Serialize(stream, ToSer);
+            stream.Close();
+        }
 
+        public Dessin Deserialize(string Path)
+        {
+            IFormatter formatter = new BinaryFormatter();
+            Stream filestream = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            Dessin ToDes = (Dessin)formatter.Deserialize(filestream);
+            filestream.Close();
+            return ToDes;
+        }
+
+        public void Redessiner(Graphics g, int i)
+        {
+            Brush b = new SolidBrush(this.m_Couleur);
+            Pen p = new Pen(b);
+            if (this.Coords.Count > 0)
+            {
+                g.DrawEllipse(p, this.Coords[i].X, this.Coords[i].Y, 6, 6);
+            }
         }
     }
 }

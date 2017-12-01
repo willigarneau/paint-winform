@@ -46,10 +46,17 @@ namespace TP6_Programmation_III
         {
             if (txtName.Text == "")
             {
-                MessageBox.Show("Vous devez entrer un nom de dessin valide pour commencer.", "Avertissement",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Hand);
-                return;
+                bool End = MessageBox.Show("Vous devez entrer un nom de dessin valide pour commencer.", "Avertissement",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Hand)== DialogResult.OK;
+                if (End)
+                {
+                    return;
+                }
+                else
+                {
+                    Application.Exit();
+                }
             }
             Nom = txtName.Text;
             Date = DateTime.Now;

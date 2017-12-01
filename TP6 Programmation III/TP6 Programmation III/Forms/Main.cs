@@ -60,7 +60,39 @@ namespace TP6_Programmation_III
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            plDessin.Refresh();
+            Nouveau.ShowDialog();
+            if (Nouveau.DialogResult == DialogResult.Cancel)
+                plDessin.Refresh();
+            else
+                return;
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            Dess.Serialize();
+        }
+
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            OpfFichiers = new OpenFileDialog();
+            OpfFichiers.Filter = "All Files (*.*)|*.*"; ;
+            OpfFichiers.FilterIndex = 1;
+            OpfFichiers.Multiselect = false;
+
+            if (OpfFichiers.ShowDialog() == DialogResult.OK)
+            {
+                string Path = OpfFichiers.FileName;
+                Dessin OpenDes = new Dessin(null, DateTime.Now, 0.0);
+                OpenDes = OpenDes.Deserialize(Path);
+                plDessin.Refresh();
+                int indice = 0;
+                foreach (Point p in OpenDes.Coords)
+                {
+                    OpenDes.Redessiner(g, indice);
+                    indice++;
+                }
+                indice = 0;
+            }
         }
     }
 }
