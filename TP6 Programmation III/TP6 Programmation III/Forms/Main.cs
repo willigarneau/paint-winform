@@ -60,9 +60,14 @@ namespace TP6_Programmation_III
 
         private void btnNew_Click(object sender, EventArgs e)
         {
+
             Nouveau.ShowDialog();
             if (Nouveau.DialogResult == DialogResult.Cancel)
+            {
                 plDessin.Refresh();
+                Dessin NewOne = new Dessin(Nouveau.Nom, Nouveau.Date, Math.Round(r.NextDouble() * (56.78 - 12.34) + 12.34, 2));
+            }
+
             else
                 return;
         }
@@ -70,6 +75,7 @@ namespace TP6_Programmation_III
         private void btnSave_Click(object sender, EventArgs e)
         {
             Dess.Serialize();
+            MessageBox.Show("Votre dessin a été enregistré avec succès.", "Bravo !", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnOpen_Click(object sender, EventArgs e)

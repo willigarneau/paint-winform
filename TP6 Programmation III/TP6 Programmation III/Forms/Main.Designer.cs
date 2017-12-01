@@ -45,7 +45,9 @@
             this.btnAgrandirY = new System.Windows.Forms.ToolStripMenuItem();
             this.plDessin = new System.Windows.Forms.Panel();
             this.OpfFichiers = new System.Windows.Forms.OpenFileDialog();
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -56,7 +58,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.toolStrip1.Size = new System.Drawing.Size(1479, 44);
+            this.toolStrip1.Size = new System.Drawing.Size(1472, 44);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -158,11 +160,12 @@
             // 
             // plDessin
             // 
+            this.plDessin.AutoSize = true;
             this.plDessin.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.plDessin.Location = new System.Drawing.Point(30, 65);
+            this.plDessin.Location = new System.Drawing.Point(16, 116);
             this.plDessin.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
             this.plDessin.Name = "plDessin";
-            this.plDessin.Size = new System.Drawing.Size(1421, 897);
+            this.plDessin.Size = new System.Drawing.Size(1440, 1280);
             this.plDessin.TabIndex = 1;
             this.plDessin.MouseDown += new System.Windows.Forms.MouseEventHandler(this.plDessin_MouseDown);
             this.plDessin.MouseLeave += new System.EventHandler(this.plDessin_MouseLeave);
@@ -173,11 +176,16 @@
             // 
             this.OpfFichiers.FileName = "openFileDialog1";
             // 
+            // fileSystemWatcher1
+            // 
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1479, 988);
+            this.ClientSize = new System.Drawing.Size(1472, 1421);
             this.Controls.Add(this.plDessin);
             this.Controls.Add(this.toolStrip1);
             this.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
@@ -185,6 +193,7 @@
             this.Text = "TP6 par William Garneau";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,6 +217,7 @@
         private System.Windows.Forms.ToolStripMenuItem btnAgrandirY;
         private System.Windows.Forms.Panel plDessin;
         private System.Windows.Forms.OpenFileDialog OpfFichiers;
+        private System.IO.FileSystemWatcher fileSystemWatcher1;
     }
 }
 

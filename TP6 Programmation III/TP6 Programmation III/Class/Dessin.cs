@@ -142,7 +142,8 @@ namespace TP6_Programmation_III
         {
             IFormatter formatter = new BinaryFormatter();
             Stream filestream = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.Read);
-            Dessin ToDes = (Dessin)formatter.Deserialize(filestream);
+            Dessin ToDes = new Dessin(null, DateTime.Now, 0.0);
+            ToDes = (Dessin)formatter.Deserialize(filestream);
             filestream.Close();
             return ToDes;
         }
