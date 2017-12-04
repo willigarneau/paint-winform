@@ -160,7 +160,7 @@ namespace TP6_Programmation_III
                 i++;
             }
             string Path = string.Format("{0}.txt", ToSave.Nom);
-            FileStream TextFile = new FileStream(Path, FileMode.Create, FileAccess.Write, FileShare.None);
+            FileStream TextFile = new FileStream(Path, FileMode.Truncate, FileAccess.Write, FileShare.None);
             StreamWriter s = new StreamWriter(TextFile);
             s.Write(ToFile);
             TextFile.Close();
