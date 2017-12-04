@@ -89,7 +89,14 @@ namespace TP6_Programmation_III
             {
                 string Path = OpfFichiers.FileName;
                 Dessin OpenDes = new Dessin(null, DateTime.Now, 0.0);
-                OpenDes = OpenDes.Deserialize(Path);
+                if (Path[Path.Length -1]== 't')
+                {
+                    OpenDes.DrawFromTextFile(Path);
+                }
+                else
+                {
+                    OpenDes = OpenDes.Deserialize(Path);
+                }
                 plDessin.Refresh();
                 int indice = 0;
                 foreach (Point p in OpenDes.Coords)

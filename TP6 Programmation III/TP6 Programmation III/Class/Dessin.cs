@@ -152,15 +152,15 @@ namespace TP6_Programmation_III
         {
             Dessin ToSave = new Dessin(Nom, DateCreation, Cost);
             ToSave.Coords = Coords;
-            string ToFile = string.Format("{0}\r\n{1}\r\n{2}\r\n", ToSave.Nom, ToSave.DateCreation, ToSave.Cost);
+            string ToFile = string.Format("{0}\r{1}\r{2}\r", ToSave.Nom, ToSave.DateCreation, ToSave.Cost);
             int i = 0;
             foreach (Point p in ToSave.Coords)
             {
-                ToFile += ToSave.Coords[i].ToString() + "\r\n";
+                ToFile += ToSave.Coords[i]./*X.*/ToString() /*+ ',' + ToSave.Coords[i]./*Y.*//*ToString()*/ + "\n";
                 i++;
             }
             string Path = string.Format("{0}.txt", ToSave.Nom);
-            FileStream TextFile = new FileStream(Path, FileMode.Truncate, FileAccess.Write, FileShare.None);
+            FileStream TextFile = new FileStream(Path, FileMode.CreateNew, FileAccess.Write, FileShare.None);
             StreamWriter s = new StreamWriter(TextFile);
             s.Write(ToFile);
             TextFile.Close();
@@ -174,6 +174,28 @@ namespace TP6_Programmation_III
             {
                 g.DrawEllipse(p, this.Coords[i].X, this.Coords[i].Y, 6, 6);
             }
+        }
+
+        public Dessin DrawFromTextFile(string Path)
+        {
+            Dessin ToRead = new Dessin("", DateTime.Now, 0.0);
+            string Text=File.ReadAllText(Path);
+            string[] Decompile = Text.Split('\r');
+            ToRead.Nom = Decompile[0];
+            ToRead.DateCreation = DateTime.Parse(Decompile[1]);
+            ToRead.Cost = Double.Parse(Decompile[2]);
+
+            List<Point> Coords = new List<Point>();
+            PointConverter p = new PointConverter();
+            string[] SCoords = Decompile[3].Split('\n');
+            int i = 0;
+            foreach (string s in SCoords)
+            {
+                Coords.Add((Point)p.ConvertFromString(SCoords[i]));
+                i++;
+            }
+            ToRead.Coords = Coords;
+            return ToRead;
         }
     }
 }
