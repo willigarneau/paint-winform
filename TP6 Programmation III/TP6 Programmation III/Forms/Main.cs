@@ -331,9 +331,9 @@ namespace TP6_Programmation_III
                     Rect.X = m_X1;
                     Rect.Y = m_Y1;
 
-                    //Appel de la méthode
+                    //Erase
                     Liste = Dess.Coords;
-                    Dess.Dessiner(g);
+                    Remake(g, Dess.Coords);
                     Dess.Supprimer(Rect, Liste);
 
                     ToErase = false;
@@ -343,18 +343,16 @@ namespace TP6_Programmation_III
         }
         
 
-        //Pour le normaliser
         public void Remake(Graphics Graph, List<Point> LCoord)
         {
-            //Déclaration des variables
             g = Graph;
             int Indice = 0;
             SolidBrush Brosse = new SolidBrush(Color.Black);
-
+            Pen p = new Pen(Brosse);
             //Traitement
             while (Indice < LCoord.Count)
             {
-                Graph.FillRectangle(Brosse, LCoord[Indice].X, LCoord[Indice].Y, 5, 5);
+                Graph.DrawEllipse(p, LCoord[Indice].X, LCoord[Indice].Y, 6, 6);
                 Indice++;
             }
         }
