@@ -13,7 +13,9 @@ namespace TP6_Programmation_III
         private bool ToErase;
         private frmNewDraw Nouveau = new frmNewDraw();
         private Dessin Dess;
-        int m_IndiceNbrClick = 0, m_X1 = 0, m_Y1 = 0;
+        int m_nbClic = 0;
+        int m_X1 = 0;
+        int m_Y1 = 0;
         Random r = new Random();
         Graphics g;
         private Color Couleur;
@@ -140,7 +142,7 @@ namespace TP6_Programmation_III
         {
             int Indice = 0, X = Dess.Coords[0].X, Y = Dess.Coords[0].Y, Hauteur;
             Point NouvPoint;
-            List<Point> Liste = new List<Point>();
+            List<Point> CpyCoords = new List<Point>();
 
             //Traitement
             while (Indice < Dess.Coords.Count)
@@ -168,13 +170,18 @@ namespace TP6_Programmation_III
                 Indice++;
             }
             plDessin.Refresh();
-            Liste = Dess.Coords;
-            Remake(g, Liste);
+            CpyCoords = Dess.Coords;
+            Remake(g, CpyCoords);
         }
 
         private void btnSurface_Click(object sender, EventArgs e)
         {
-            int x1 = 0, x2 = 0, y1 = 0, y2 = 0, surf = 0, i = 0;
+            int x1 = 0;
+            int x2 = 0;
+            int y1 = 0;
+            int y2 = 0;
+            int surf = 0;
+            int i = 0;
 
             while (i < Dess.Coords.Count)
             {
@@ -240,10 +247,10 @@ namespace TP6_Programmation_III
                 Indice++;
             }
 
-            //Affichage
             plDessin.Refresh();
             Liste = Dess.Coords;
             Remake(g, Liste);
+            //Dessiner le carré
             g.DrawLine(Crayon, P1, P2);
             g.DrawLine(Crayon, P1, P3);
             g.DrawLine(Crayon, P3, P4);
@@ -255,7 +262,6 @@ namespace TP6_Programmation_III
             int Indice = 0;
             SolidBrush Brosse = new SolidBrush(Color.Black);
 
-            //Traitement
             while (Indice < Dess.Coords.Count)
             {
                 g.FillRectangle(Brosse, Dess.Coords[Indice].X, Dess.Coords[Indice].Y, 10, 5);
@@ -287,30 +293,30 @@ namespace TP6_Programmation_III
         {
             if (ToErase)
             {
-                //Déclaration des variables
+
                 int X2 = 0, Y2 = 0, X3, Y3;
                 SolidBrush Efface = new SolidBrush(plDessin.BackColor);
-                Rectangle Rect = new Rectangle();
-                List<Point> Liste = new List<Point>();
+                Rectangle SectionAEffacer = new Rectangle();
+                List<Point> CopyCoords = new List<Point>();
 
-
-                if (e.Button == MouseButtons.Left)   //Mettre dans un while??
+                //Compter les clics pour faire le rectangle
+                if (e.Button == MouseButtons.Left)
                 {
-                    if (m_IndiceNbrClick == 0)
+                    if (m_nbClic == 0)
                     {
                         m_X1 = e.X;
                         m_Y1 = e.Y;
-                        m_IndiceNbrClick++;
+                        m_nbClic++;
                     }
                     else
                     {
                         X2 = e.X;
                         Y2 = e.Y;
-                        m_IndiceNbrClick++;
+                        m_nbClic++;
                     }
                 }
 
-                if (m_IndiceNbrClick == 2)
+                if (m_nbClic == 2)
                 {
                     if (m_X1 > X2)
                     {
@@ -326,18 +332,18 @@ namespace TP6_Programmation_III
                     }
 
                     //Dimensions du rectangle
-                    Rect.Height = m_Y1 - Y2;
-                    Rect.Width = X2 - m_X1;
-                    Rect.X = m_X1;
-                    Rect.Y = m_Y1;
+                    SectionAEffacer.Height = m_Y1 - Y2;
+                    SectionAEffacer.Width = X2 - m_X1;
+                    SectionAEffacer.X = m_X1;
+                    SectionAEffacer.Y = m_Y1;
 
                     //Erase
-                    Liste = Dess.Coords;
+                    CopyCoords = Dess.Coords;
                     Remake(g, Dess.Coords);
-                    Dess.Supprimer(Rect, Liste);
+                    Dess.Supprimer(SectionAEffacer, CopyCoords);
 
                     ToErase = false;
-                    m_IndiceNbrClick = 0;
+                    m_nbClic = 0;
                 }
             }
         }

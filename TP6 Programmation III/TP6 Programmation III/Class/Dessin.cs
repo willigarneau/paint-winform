@@ -136,34 +136,34 @@ namespace TP6_Programmation_III
             return Coin;
         }
 
-        public int Supprimer(Rectangle Rect, List<Point> LCoord)
+        public int Supprimer(Rectangle Tosuppress, List<Point> Coords)
         {
-            int Indice = 0, NbrSupp = 0, Supp = 0;
+            int i = 0, NbrSupp = 0, Supp = 0;
             SolidBrush Efface = new SolidBrush(Color.White);
             List<int> AEffacer = new List<int>();
             
             //Traitement
-            while (Indice < LCoord.Count)
+            while (i < Coords.Count)
             {
-                if (LCoord[Indice].X > Rect.X && LCoord[Indice].X < Rect.Width + Rect.X && LCoord[Indice].Y > Rect.Y - Rect.Height
-                    && LCoord[Indice].Y < Rect.Y)
+                if (Coords[i].X > Tosuppress.X && Coords[i].X < Tosuppress.Width + Tosuppress.X && Coords[i].Y > Tosuppress.Y - Tosuppress.Height
+                    && Coords[i].Y < Tosuppress.Y)
                 {
-                    graph.FillRectangle(Efface, LCoord[Indice].X, LCoord[Indice].Y, 7, 7);
-                    AEffacer.Add(Indice);
+                    graph.FillRectangle(Efface, Coords[i].X, Coords[i].Y, 7, 7);
+                    AEffacer.Add(i);
                     NbrSupp++;
                 }
-                Indice++;
+                i++;
             }
-            Indice = 0;
+            i = 0;
 
-            while (Indice < AEffacer.Count)
+            while (i < AEffacer.Count)
             {
-                LCoord.RemoveAt(AEffacer[Indice] - Supp);
+                Coords.RemoveAt(AEffacer[i] - Supp);
                 Supp++;
-                Indice++;
+                i++;
             }
 
-            Indice = LCoord.Count;
+            i = Coords.Count;
 
             return NbrSupp;
         }
