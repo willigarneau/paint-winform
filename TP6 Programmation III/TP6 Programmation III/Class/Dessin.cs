@@ -20,6 +20,7 @@ namespace TP6_Programmation_III
         public List<Point> m_Coords;
         public Color m_Couleur;
         private float m_Largeur;
+        Graphics graph;
 #endregion
 
         #region Properties
@@ -110,21 +111,61 @@ namespace TP6_Programmation_III
         {
             Brush b = new SolidBrush(this.m_Couleur);
             Pen p = new Pen(b);
+            graph = g;
             if (this.Coords.Count > 0)
             {
                 g.DrawEllipse(p, this.Coords.Last().X, this.Coords.Last().Y, 6, 6);
             }
         }
 
-        Point TrouverCoinGH()
+        Point TrouverCoinGH(List<Point> Coords)
         {
-            Point p = new Point();
-            return p;
+            Point Coin = Coords[0];
+            int i = 0;
+            while (i < Coords.Count)
+            {
+                if (Coin.X >= Coords[i].X)
+                {
+                    if (Coin.Y <Coords[i].Y)
+                    {
+                        Coin = Coords[i];
+                    }
+                }
+                i++;
+            }
+            return Coin;
         }
 
-        int Supprimer(Rectangle Rect)
+        public int Supprimer(Rectangle Rect, List<Point> LCoord)
         {
-            return 0;
+            int Indice = 0, NbrSupp = 0, Supp = 0;
+            SolidBrush Efface = new SolidBrush(Color.White);
+            List<int> AEffacer = new List<int>();
+            
+            //Traitement
+            while (Indice < LCoord.Count)
+            {
+                if (LCoord[Indice].X > Rect.X && LCoord[Indice].X < Rect.Width + Rect.X && LCoord[Indice].Y > Rect.Y - Rect.Height
+                    && LCoord[Indice].Y < Rect.Y)
+                {
+                    graph.FillRectangle(Efface, LCoord[Indice].X, LCoord[Indice].Y, 7, 7);
+                    AEffacer.Add(Indice);
+                    NbrSupp++;
+                }
+                Indice++;
+            }
+            Indice = 0;
+
+            while (Indice < AEffacer.Count)
+            {
+                LCoord.RemoveAt(AEffacer[Indice] - Supp);
+                Supp++;
+                Indice++;
+            }
+
+            Indice = LCoord.Count;
+
+            return NbrSupp;
         }
 
         public void Serialize()
@@ -152,11 +193,11 @@ namespace TP6_Programmation_III
         {
             Dessin ToSave = new Dessin(Nom, DateCreation, Cost);
             ToSave.Coords = Coords;
-            string ToFile = string.Format("{0}\r{1}\r{2}\r", ToSave.Nom, ToSave.DateCreation, ToSave.Cost);
+            string ToFile = string.Format("{0} \r\n {1} \r\n {2} \r\n", ToSave.Nom, ToSave.DateCreation, ToSave.Cost);
             int i = 0;
             foreach (Point p in ToSave.Coords)
             {
-                ToFile += ToSave.Coords[i]./*X.*/ToString() /*+ ',' + ToSave.Coords[i]./*Y.*//*ToString()*/ + "\n";
+                ToFile += string.Format("({0}, {1}) \r\n", ToSave.Coords[i].X, ToSave.Coords[i].Y);
                 i++;
             }
             string Path = string.Format("{0}.txt", ToSave.Nom);
@@ -176,26 +217,26 @@ namespace TP6_Programmation_III
             }
         }
 
-        public Dessin DrawFromTextFile(string Path)
-        {
-            Dessin ToRead = new Dessin("", DateTime.Now, 0.0);
-            string Text=File.ReadAllText(Path);
-            string[] Decompile = Text.Split('\r');
-            ToRead.Nom = Decompile[0];
-            ToRead.DateCreation = DateTime.Parse(Decompile[1]);
-            ToRead.Cost = Double.Parse(Decompile[2]);
+        //public Dessin DrawFromTextFile(string Path)
+        //{
+        //    Dessin ToRead = new Dessin("", DateTime.Now, 0.0);
+        //    string Text=File.ReadAllText(Path);
+        //    string[] Decompile = Text.Split('\r');
+        //    ToRead.Nom = Decompile[0];
+        //    ToRead.DateCreation = DateTime.Parse(Decompile[1]);
+        //    ToRead.Cost = Double.Parse(Decompile[2]);
 
-            List<Point> Coords = new List<Point>();
-            PointConverter p = new PointConverter();
-            string[] SCoords = Decompile[3].Split('\n');
-            int i = 0;
-            foreach (string s in SCoords)
-            {
-                Coords.Add((Point)p.ConvertFromString(SCoords[i]));
-                i++;
-            }
-            ToRead.Coords = Coords;
-            return ToRead;
-        }
+        //    List<Point> Coords = new List<Point>();
+        //    PointConverter p = new PointConverter();
+        //    string[] SCoords = Decompile[3].Split('\n');
+        //    int i = 0;
+        //    foreach (string s in SCoords)
+        //    {
+        //        Coords.Add((Point)p.ConvertFromString(SCoords[i]));
+        //        i++;
+        //    }
+        //    ToRead.Coords = Coords;
+        //    return ToRead;
+        //}
     }
 }

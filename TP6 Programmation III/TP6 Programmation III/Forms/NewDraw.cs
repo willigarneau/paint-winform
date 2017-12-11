@@ -63,6 +63,7 @@ namespace TP6_Programmation_III
             this.Close();
 
         }
+        //Si on essaye de sortir sans avoir choisi un nom 
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);

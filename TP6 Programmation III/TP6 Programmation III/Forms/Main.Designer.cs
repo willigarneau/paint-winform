@@ -57,7 +57,7 @@
             this.DdbMenu});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(720, 43);
+            this.toolStrip1.Size = new System.Drawing.Size(480, 43);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -80,94 +80,102 @@
             this.DdbMenu.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
             this.DdbMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.DdbMenu.Name = "DdbMenu";
-            this.DdbMenu.Size = new System.Drawing.Size(111, 40);
+            this.DdbMenu.Size = new System.Drawing.Size(87, 40);
             this.DdbMenu.Text = "Menu";
             // 
             // btnNew
             // 
             this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(275, 30);
+            this.btnNew.Size = new System.Drawing.Size(194, 22);
             this.btnNew.Text = "Nouveau";
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnOpen
             // 
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(275, 30);
+            this.btnOpen.Size = new System.Drawing.Size(194, 22);
             this.btnOpen.Text = "Ouvrir";
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // btnSave
             // 
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(275, 30);
+            this.btnSave.Size = new System.Drawing.Size(194, 22);
             this.btnSave.Text = "Enregistrer";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnSaveText
             // 
             this.btnSaveText.Name = "btnSaveText";
-            this.btnSaveText.Size = new System.Drawing.Size(275, 30);
+            this.btnSaveText.Size = new System.Drawing.Size(194, 22);
             this.btnSaveText.Text = "Enregistrer fichier texte";
             this.btnSaveText.Click += new System.EventHandler(this.btnSaveText_Click);
             // 
             // btnProperties
             // 
             this.btnProperties.Name = "btnProperties";
-            this.btnProperties.Size = new System.Drawing.Size(275, 30);
+            this.btnProperties.Size = new System.Drawing.Size(194, 22);
             this.btnProperties.Text = "Propriétés";
+            this.btnProperties.Click += new System.EventHandler(this.btnProperties_Click);
             // 
             // btnRefresh
             // 
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(275, 30);
+            this.btnRefresh.Size = new System.Drawing.Size(194, 22);
             this.btnRefresh.Text = "Rafraîchir";
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // btnSurface
             // 
             this.btnSurface.Name = "btnSurface";
-            this.btnSurface.Size = new System.Drawing.Size(275, 30);
+            this.btnSurface.Size = new System.Drawing.Size(194, 22);
             this.btnSurface.Text = "Surface";
+            this.btnSurface.Click += new System.EventHandler(this.btnSurface_Click);
             // 
             // btnErase
             // 
             this.btnErase.Name = "btnErase";
-            this.btnErase.Size = new System.Drawing.Size(275, 30);
+            this.btnErase.Size = new System.Drawing.Size(194, 22);
             this.btnErase.Text = "Effacer";
+            this.btnErase.Click += new System.EventHandler(this.btnErase_Click);
             // 
             // btnNormalise
             // 
             this.btnNormalise.Name = "btnNormalise";
-            this.btnNormalise.Size = new System.Drawing.Size(275, 30);
+            this.btnNormalise.Size = new System.Drawing.Size(194, 22);
             this.btnNormalise.Text = "Normaliser";
+            this.btnNormalise.Click += new System.EventHandler(this.btnNormalise_Click);
             // 
             // btnEncadrer
             // 
             this.btnEncadrer.Name = "btnEncadrer";
-            this.btnEncadrer.Size = new System.Drawing.Size(275, 30);
+            this.btnEncadrer.Size = new System.Drawing.Size(194, 22);
             this.btnEncadrer.Text = "Encadrer";
+            this.btnEncadrer.Click += new System.EventHandler(this.btnEncadrer_Click);
             // 
             // btnAgrandirX
             // 
             this.btnAgrandirX.Name = "btnAgrandirX";
-            this.btnAgrandirX.Size = new System.Drawing.Size(275, 30);
+            this.btnAgrandirX.Size = new System.Drawing.Size(194, 22);
             this.btnAgrandirX.Text = "Agrandir X";
+            this.btnAgrandirX.Click += new System.EventHandler(this.btnAgrandirX_Click);
             // 
             // btnAgrandirY
             // 
             this.btnAgrandirY.Name = "btnAgrandirY";
-            this.btnAgrandirY.Size = new System.Drawing.Size(275, 30);
+            this.btnAgrandirY.Size = new System.Drawing.Size(194, 22);
             this.btnAgrandirY.Text = "Agrandir Y";
+            this.btnAgrandirY.Click += new System.EventHandler(this.btnAgrandirY_Click);
             // 
             // plDessin
             // 
             this.plDessin.AutoSize = true;
             this.plDessin.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.plDessin.Location = new System.Drawing.Point(10, 80);
-            this.plDessin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.plDessin.Location = new System.Drawing.Point(7, 52);
             this.plDessin.Name = "plDessin";
-            this.plDessin.Size = new System.Drawing.Size(700, 500);
+            this.plDessin.Size = new System.Drawing.Size(467, 325);
             this.plDessin.TabIndex = 1;
+            this.plDessin.MouseClick += new System.Windows.Forms.MouseEventHandler(this.plDessin_MouseClick);
             this.plDessin.MouseDown += new System.Windows.Forms.MouseEventHandler(this.plDessin_MouseDown);
             this.plDessin.MouseLeave += new System.EventHandler(this.plDessin_MouseLeave);
             this.plDessin.MouseMove += new System.Windows.Forms.MouseEventHandler(this.plDessin_MouseMove);
@@ -184,12 +192,11 @@
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(720, 602);
+            this.ClientSize = new System.Drawing.Size(480, 391);
             this.Controls.Add(this.plDessin);
             this.Controls.Add(this.toolStrip1);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "frmMain";
             this.Text = "TP6 par William Garneau";
             this.toolStrip1.ResumeLayout(false);

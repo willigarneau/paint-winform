@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace TP6_Programmation_III
 {
@@ -9,11 +10,14 @@ namespace TP6_Programmation_III
 
         #region Variables
         private Boolean DessinEnCours;
+        private bool ToErase;
         private frmNewDraw Nouveau = new frmNewDraw();
         private Dessin Dess;
+        int m_IndiceNbrClick = 0, m_X1 = 0, m_Y1 = 0;
         Random r = new Random();
         Graphics g;
         private Color Couleur;
+
         #endregion
 
         #region Methods
@@ -91,7 +95,7 @@ namespace TP6_Programmation_III
                 Dessin OpenDes = new Dessin(null, DateTime.Now, 0.0);
                 if (Path[Path.Length -1]== 't')
                 {
-                    OpenDes.DrawFromTextFile(Path);
+                    //OpenDes.DrawFromTextFile(Path);
                 }
                 else
                 {
@@ -111,6 +115,248 @@ namespace TP6_Programmation_III
         private void btnSaveText_Click(object sender, EventArgs e)
         {
             Dess.Save();
+        }
+
+        private void btnProperties_Click(object sender, EventArgs e)
+        {
+            Forms.Properties frmProperties = new Forms.Properties(Dess);
+            frmProperties.ShowDialog();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            SolidBrush brush = new SolidBrush(Color.Red);
+            Pen pen = new Pen(brush);
+            int i = 0;
+            plDessin.Refresh();
+            foreach (Point p in Dess.Coords)
+            {
+                g.DrawEllipse(pen, Dess.Coords[i].X, Dess.Coords[i].Y, 6, 6);
+                i++;
+            }
+        }
+
+        private void btnNormalise_Click(object sender, EventArgs e)
+        {
+            int Indice = 0, X = Dess.Coords[0].X, Y = Dess.Coords[0].Y, Hauteur;
+            Point NouvPoint;
+            List<Point> Liste = new List<Point>();
+
+            //Traitement
+            while (Indice < Dess.Coords.Count)
+            {
+                if (X > Dess.Coords[Indice].X)
+                {
+                    X = Dess.Coords[Indice].X;
+                }
+                if (Y > Dess.Coords[Indice].Y)
+                {
+                    Y = Dess.Coords[Indice].Y;
+                }
+                Indice++;
+            }
+
+            Indice = 0;
+            Hauteur = plDessin.Height + Y;
+
+            while (Indice < Dess.Coords.Count)
+            {
+                NouvPoint = Dess.Coords[Indice];
+                NouvPoint.X = NouvPoint.X - X;
+                NouvPoint.Y = NouvPoint.Y - Y;
+                Dess.Coords[Indice] = NouvPoint;
+                Indice++;
+            }
+            plDessin.Refresh();
+            Liste = Dess.Coords;
+            Remake(g, Liste);
+        }
+
+        private void btnSurface_Click(object sender, EventArgs e)
+        {
+            int x1 = 0, x2 = 0, y1 = 0, y2 = 0, surf = 0, i = 0;
+
+            while (i < Dess.Coords.Count)
+            {
+                if (x1<Dess.Coords[i].X)
+                {
+                    x1 = Dess.Coords[i].X;
+                }
+                if (x2 > Dess.Coords[i].X)
+                {
+                    x2 = Dess.Coords[i].X;
+                }
+                if (y1 < Dess.Coords[i].Y)
+                {
+                    y1 = Dess.Coords[i].Y;
+                }
+                if (y2 > Dess.Coords[i].Y)
+                {
+                    y2 = Dess.Coords[i].Y;
+                }
+                i++;
+            }
+            surf = (x2 - x1) * (y2 - y1);
+
+            MessageBox.Show("Le nombre total de pixels utilisés : " + surf.ToString(), "Information sur les pixels", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnEncadrer_Click(object sender, EventArgs e)
+        {
+            int Indice = 0;
+            Pen Crayon = new Pen(Color.Black, 5);
+            Point P1 = new Point();
+            Point P2 = new Point();
+            Point P3 = new Point();
+            Point P4 = new Point();
+            List<Point> Liste = new List<Point>();
+
+            P3.X = plDessin.Width;
+            P2.Y = plDessin.Height;
+
+            //Traitement
+            while (Indice < Dess.Coords.Count)
+            {
+                if (P2.X < Dess.Coords[Indice].X)
+                {
+                    P2.X = Dess.Coords[Indice].X;
+                    P4.X = Dess.Coords[Indice].X;
+                }
+                if (P3.X > Dess.Coords[Indice].X)
+                {
+                    P3.X = Dess.Coords[Indice].X;
+                    P1.X = Dess.Coords[Indice].X;
+                }
+                if (P3.Y < Dess.Coords[Indice].Y)
+                {
+                    P3.Y = Dess.Coords[Indice].Y;
+                    P4.Y = Dess.Coords[Indice].Y;
+                }
+                if (P2.Y > Dess.Coords[Indice].Y)
+                {
+                    P2.Y = Dess.Coords[Indice].Y;
+                    P1.Y = Dess.Coords[Indice].Y;
+                }
+                Indice++;
+            }
+
+            //Affichage
+            plDessin.Refresh();
+            Liste = Dess.Coords;
+            Remake(g, Liste);
+            g.DrawLine(Crayon, P1, P2);
+            g.DrawLine(Crayon, P1, P3);
+            g.DrawLine(Crayon, P3, P4);
+            g.DrawLine(Crayon, P2, P4);
+        }
+
+        private void btnAgrandirX_Click(object sender, EventArgs e)
+        {
+            int Indice = 0;
+            SolidBrush Brosse = new SolidBrush(Color.Black);
+
+            //Traitement
+            while (Indice < Dess.Coords.Count)
+            {
+                g.FillRectangle(Brosse, Dess.Coords[Indice].X, Dess.Coords[Indice].Y, 10, 5);
+                Indice++;
+            }
+        }
+
+        private void btnErase_Click(object sender, EventArgs e)
+        {
+            //Traitement
+            MessageBox.Show("Vos deux prochains clics vont effacer une partie de votre dessin", "Avertissement", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            ToErase = true;
+        }
+
+        private void btnAgrandirY_Click(object sender, EventArgs e)
+        {
+            int Indice = 0;
+            SolidBrush Brosse = new SolidBrush(Color.Black);
+
+            //Traitement
+            while (Indice < Dess.Coords.Count)
+            {
+                g.FillRectangle(Brosse, Dess.Coords[Indice].X, Dess.Coords[Indice].Y, 5, 10);
+                Indice++;
+            }
+        }
+
+        private void plDessin_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (ToErase)
+            {
+                //Déclaration des variables
+                int X2 = 0, Y2 = 0, X3, Y3;
+                SolidBrush Efface = new SolidBrush(plDessin.BackColor);
+                Rectangle Rect = new Rectangle();
+                List<Point> Liste = new List<Point>();
+
+
+                if (e.Button == MouseButtons.Left)   //Mettre dans un while??
+                {
+                    if (m_IndiceNbrClick == 0)
+                    {
+                        m_X1 = e.X;
+                        m_Y1 = e.Y;
+                        m_IndiceNbrClick++;
+                    }
+                    else
+                    {
+                        X2 = e.X;
+                        Y2 = e.Y;
+                        m_IndiceNbrClick++;
+                    }
+                }
+
+                if (m_IndiceNbrClick == 2)
+                {
+                    if (m_X1 > X2)
+                    {
+                        X3 = m_X1;
+                        m_X1 = X2;
+                        X2 = X3;
+                    }
+                    if (m_Y1 < Y2)
+                    {
+                        Y3 = m_Y1;
+                        m_Y1 = Y2;
+                        Y2 = Y3;
+                    }
+
+                    //Dimensions du rectangle
+                    Rect.Height = m_Y1 - Y2;
+                    Rect.Width = X2 - m_X1;
+                    Rect.X = m_X1;
+                    Rect.Y = m_Y1;
+
+                    //Appel de la méthode
+                    Liste = Dess.Coords;
+                    Dess.Dessiner(g);
+                    Dess.Supprimer(Rect, Liste);
+
+                    ToErase = false;
+                    m_IndiceNbrClick = 0;
+                }
+            }
+        }
+        
+
+        //Pour le normaliser
+        public void Remake(Graphics Graph, List<Point> LCoord)
+        {
+            //Déclaration des variables
+            g = Graph;
+            int Indice = 0;
+            SolidBrush Brosse = new SolidBrush(Color.Black);
+
+            //Traitement
+            while (Indice < LCoord.Count)
+            {
+                Graph.FillRectangle(Brosse, LCoord[Indice].X, LCoord[Indice].Y, 5, 5);
+                Indice++;
+            }
         }
     }
 }
